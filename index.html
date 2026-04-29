@@ -1,152 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Outfit Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essential Men's Outfit Assistant — Free Chrome Extension</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream:#F5F0E8; --ink:#1A1612; --charcoal:#2E2A26; --taupe:#8C7B6B; --gold:#B8935A; --gold-lt:#D4AF7A; --bg:#FAF7F2; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
 
-    :root {
-      --cream:    #F5F0E8;
-      --ink:      #1A1612;
-      --charcoal: #2E2A26;
-      --taupe:    #8C7B6B;
-      --gold:     #B8935A;
-      --gold-lt:  #D4AF7A;
-      --card-bg:  #FFFFFF;
-      --border:   #E0D8CC;
-      --ff-head:  'Playfair Display', Georgia, serif;
-      --ff-body:  'DM Sans', sans-serif;
-      --radius:   6px;
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(250,247,242,0.93); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(184,147,90,0.2); z-index: 100; padding: 0 5%; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+    .nav-brand span { color: var(--gold); font-style: italic; }
+    .nav-link { font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 4px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; transition: all 0.2s; }
+    .nav-link:hover { background: var(--gold); color: white; }
 
-    html, body {
-      width: 360px;
-      min-height: 480px;
-      background: var(--cream);
-      font-family: var(--ff-body);
-      color: var(--ink);
-      font-size: 13px;
-    }
+    .hero { padding: 140px 5% 80px; text-align: center; background: var(--ink); position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold)); }
+    .hero::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 40%; background: repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.015) 8px, rgba(255,255,255,0.015) 16px); }
+    .hero-badge { display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; color: var(--gold); border: 1px solid var(--gold); border-radius: 2px; padding: 4px 12px; margin-bottom: 28px; text-transform: uppercase; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 6vw, 68px); font-weight: 700; line-height: 1.1; color: var(--cream); margin-bottom: 20px; }
+    .hero h1 em { font-style: italic; color: var(--gold-lt); }
+    .hero p { font-size: 17px; color: var(--taupe); max-width: 500px; margin: 0 auto 44px; line-height: 1.7; font-weight: 300; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-main { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: white; font-size: 14px; font-weight: 500; padding: 13px 28px; border-radius: 4px; text-decoration: none; transition: all 0.2s; }
+    .btn-main:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--cream); font-size: 14px; font-weight: 500; padding: 13px 28px; border-radius: 4px; text-decoration: none; border: 1px solid rgba(245,240,232,0.25); transition: all 0.2s; }
+    .btn-ghost:hover { border-color: var(--cream); }
 
-    .container { display: flex; flex-direction: column; min-height: 100%; padding: 0 0 12px; }
+    .preview { display: flex; justify-content: center; padding: 70px 5% 80px; background: var(--bg); }
+    .popup-preview { width: 360px; background: var(--cream); border-radius: 8px; box-shadow: 0 40px 80px rgba(26,14,5,0.18), 0 0 0 1px rgba(184,147,90,0.2); overflow: hidden; }
+    .pp-header { background: var(--ink); padding: 20px 24px 18px; border-bottom: 3px solid var(--gold); }
+    .pp-badge { display: inline-block; font-size: 8px; letter-spacing: 0.18em; color: var(--gold); border: 1px solid var(--gold); border-radius: 2px; padding: 2px 6px; margin-bottom: 8px; text-transform: uppercase; }
+    .pp-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--cream); line-height: 1.1; }
+    .pp-title em { font-style: italic; color: var(--gold-lt); }
+    .pp-sub { font-size: 11px; color: var(--taupe); margin-top: 4px; }
+    .pp-body { padding: 20px 24px; }
+    .pp-field { margin-bottom: 12px; }
+    .pp-label { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); margin-bottom: 4px; }
+    .pp-select { width: 100%; padding: 8px 12px; border: 1.5px solid #E0D8CC; border-radius: 6px; background: white; font-size: 12px; color: var(--charcoal); }
+    .pp-btn { width: 100%; padding: 10px; background: var(--ink); color: var(--cream); border: none; border-radius: 6px; font-size: 13px; font-weight: 500; margin-top: 4px; text-align: center; }
+    .pp-result { margin-top: 16px; border-top: 1px solid #E0D8CC; padding-top: 14px; }
+    .pp-result-label { font-size: 9px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .pp-card { background: white; border: 1.5px solid #E0D8CC; border-radius: 6px; padding: 10px 12px; position: relative; margin-bottom: 6px; }
+    .pp-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--gold), var(--gold-lt)); border-radius: 6px 0 0 6px; }
+    .pp-card-look { font-size: 8px; color: var(--taupe); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+    .pp-card-text { font-size: 11.5px; color: var(--charcoal); line-height: 1.5; }
 
-    .header { background: var(--ink); padding: 22px 24px 20px; position: relative; overflow: hidden; }
-    .header::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold)); }
-    .header::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 120px; background: repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(255,255,255,0.02) 6px, rgba(255,255,255,0.02) 12px); }
+    .features { padding: 80px 5%; background: white; }
+    .section-label { text-align: center; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; text-align: center; color: var(--ink); margin-bottom: 56px; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .feature-card { background: var(--bg); border-radius: 6px; padding: 28px 24px; border: 1px solid rgba(184,147,90,0.15); transition: all 0.2s; }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,147,90,0.1); }
+    .feature-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .feature-card p { font-size: 13px; color: var(--taupe); line-height: 1.65; font-weight: 300; }
 
-    .header-badge { display: inline-block; font-size: 9px; font-weight: 500; letter-spacing: 0.18em; color: var(--gold); border: 1px solid var(--gold); border-radius: 2px; padding: 2px 7px; margin-bottom: 10px; }
-    .title { font-family: var(--ff-head); font-size: 30px; font-weight: 700; line-height: 1.05; color: var(--cream); letter-spacing: -0.01em; }
-    .title em { font-style: italic; color: var(--gold-lt); }
-    .subtitle { margin-top: 6px; font-size: 11px; color: var(--taupe); font-weight: 300; letter-spacing: 0.04em; }
+    .steps { padding: 80px 5%; background: var(--ink); text-align: center; }
+    .steps .section-label { color: var(--gold); }
+    .steps .section-title { color: var(--cream); margin-bottom: 50px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; max-width: 800px; margin: 0 auto 50px; }
+    .step-num { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(184,147,90,0.4); background: rgba(184,147,90,0.12); color: var(--gold); font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .step h4 { font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+    .step p { font-size: 12px; color: var(--taupe); font-weight: 300; line-height: 1.6; }
 
-    .form-section { padding: 20px 24px 0; display: flex; flex-direction: column; gap: 12px; }
-    .field { display: flex; flex-direction: column; gap: 5px; }
-    .label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); display: flex; align-items: center; gap: 6px; }
-    .label-icon { color: var(--gold); font-size: 8px; }
-    .select-wrapper { position: relative; }
-
-    select { width: 100%; padding: 9px 32px 9px 12px; appearance: none; -webkit-appearance: none; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--card-bg); font-family: var(--ff-body); font-size: 13px; color: var(--ink); cursor: pointer; transition: border-color 0.18s; outline: none; }
-    select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,147,90,0.12); }
-    .select-arrow { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--taupe); pointer-events: none; }
-
-    .btn { margin-top: 4px; width: 100%; padding: 11px 20px; background: var(--ink); color: var(--cream); border: none; border-radius: var(--radius); font-family: var(--ff-body); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.18s, transform 0.1s; }
-    .btn:hover { background: var(--charcoal); box-shadow: 0 4px 16px rgba(26,22,18,0.22); }
-    .btn:active { transform: scale(0.98); }
-    .btn-icon { font-size: 16px; transition: transform 0.2s; }
-    .btn:hover .btn-icon { transform: translateX(3px); }
-
-    .output { padding: 18px 24px 0; animation: slideUp 0.32s ease; }
-    .output.hidden { display: none; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-    .output-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .output-label { font-size: 9px; font-weight: 500; letter-spacing: 0.18em; color: var(--gold); white-space: nowrap; }
-    .output-divider { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
-    .outfit-cards { display: flex; flex-direction: column; gap: 8px; }
-
-    .outfit-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; position: relative; animation: fadeCard 0.3s ease both; }
-    .outfit-card:nth-child(2) { animation-delay: 0.08s; }
-    @keyframes fadeCard { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    .outfit-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--gold), var(--gold-lt)); border-radius: var(--radius) 0 0 var(--radius); }
-
-    .card-look { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--taupe); margin-bottom: 5px; }
-    .card-outfit { font-size: 12.5px; line-height: 1.55; color: var(--charcoal); }
-
-    .more-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-size: 11px; font-weight: 500; color: var(--gold); text-decoration: none; transition: color 0.15s, gap 0.15s; }
-    .more-link:hover { color: var(--ink); gap: 8px; }
-
-    .footer { margin-top: auto; padding: 16px 24px 0; font-size: 10px; color: var(--taupe); text-align: center; }
-    .footer a { color: var(--gold); text-decoration: none; font-weight: 500; }
+    footer { background: #111; color: var(--taupe); text-align: center; padding: 28px 5%; font-size: 12px; border-top: 1px solid rgba(184,147,90,0.2); }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer strong { color: var(--cream); font-weight: 500; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="header-badge">MEN'S STYLE</div>
-      <h1 class="title">Outfit<br><em>Generator</em></h1>
-      <p class="subtitle">Curated looks for every occasion</p>
-    </header>
 
-    <main class="form-section">
-      <div class="field">
-        <label for="occasion" class="label"><span class="label-icon">◈</span> Occasion</label>
-        <div class="select-wrapper">
-          <select id="occasion">
-            <option value="casual">Casual</option>
-            <option value="formal">Formal</option>
-            <option value="party">Party</option>
-            <option value="office">Office</option>
-          </select>
-          <span class="select-arrow">↓</span>
+  <nav>
+    <div class="nav-brand">Essential<span>Mens</span></div>
+    <a class="nav-link" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant" target="_blank">View on GitHub</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">Free Chrome Extension</div>
+    <h1>Your Personal<br><em>Style Assistant</em></h1>
+    <p>Generate stylish men's outfit suggestions based on occasion, season, and color — right from your browser.</p>
+    <div class="hero-btns">
+      <a class="btn-main" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant/archive/refs/heads/main.zip">Download Free ↓</a>
+      <a class="btn-ghost" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant" target="_blank">★ View on GitHub</a>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="popup-preview">
+      <div class="pp-header">
+        <div class="pp-badge">Men's Style</div>
+        <div class="pp-title">Outfit<br><em>Generator</em></div>
+        <div class="pp-sub">Curated looks for every occasion</div>
+      </div>
+      <div class="pp-body">
+        <div class="pp-field"><div class="pp-label">◈ Occasion</div><div class="pp-select">Formal</div></div>
+        <div class="pp-field"><div class="pp-label">◈ Season</div><div class="pp-select">Winter</div></div>
+        <div class="pp-field"><div class="pp-label">◈ Color Preference</div><div class="pp-select">Blue</div></div>
+        <div class="pp-btn">Generate Outfit →</div>
+        <div class="pp-result">
+          <div class="pp-result-label">YOUR LOOKS ──────</div>
+          <div class="pp-card">
+            <div class="pp-card-look">Look 1</div>
+            <div class="pp-card-text">Navy wool suit with a pale blue shirt, navy grenadine tie and brown oxfords</div>
+          </div>
+          <div class="pp-card">
+            <div class="pp-card-look">Look 2</div>
+            <div class="pp-card-text">Midnight blue suit with a white shirt, no tie and black cap-toe shoes</div>
+          </div>
         </div>
       </div>
-      <div class="field">
-        <label for="season" class="label"><span class="label-icon">◈</span> Season</label>
-        <div class="select-wrapper">
-          <select id="season">
-            <option value="summer">Summer</option>
-            <option value="winter">Winter</option>
-            <option value="spring">Spring</option>
-            <option value="fall">Fall</option>
-          </select>
-          <span class="select-arrow">↓</span>
-        </div>
-      </div>
-      <div class="field">
-        <label for="color" class="label"><span class="label-icon">◈</span> Color Preference</label>
-        <div class="select-wrapper">
-          <select id="color">
-            <option value="black">Black</option>
-            <option value="white">White</option>
-            <option value="blue">Blue</option>
-            <option value="neutral">Neutral</option>
-          </select>
-          <span class="select-arrow">↓</span>
-        </div>
-      </div>
-      <button id="generateBtn" class="btn">
-        <span class="btn-text">Generate Outfit</span>
-        <span class="btn-icon">→</span>
-      </button>
-    </main>
+    </div>
+  </section>
 
-    <section id="output" class="output hidden">
-      <div class="output-header">
-        <span class="output-label">YOUR LOOKS</span>
-        <div class="output-divider"></div>
-      </div>
-      <div id="outfitCards" class="outfit-cards"></div>
-      <a href="https://essentialmens.com/" target="_blank" class="more-link">View more outfits <span>↗</span></a>
-    </section>
+  <section class="features">
+    <div class="section-label">Why you'll love it</div>
+    <div class="section-title">Built for every man</div>
+    <div class="features-grid">
+      <div class="feature-card"><span class="feature-icon">🎯</span><h3>Occasion-Based</h3><p>Casual, formal, party, or office — get outfits perfectly matched to where you're going.</p></div>
+      <div class="feature-card"><span class="feature-icon">🌦️</span><h3>Season-Aware</h3><p>Summer linens to winter wools — every suggestion is weather-appropriate.</p></div>
+      <div class="feature-card"><span class="feature-icon">🎨</span><h3>Color Preferences</h3><p>Pick your favorite color tone and get coordinated looks built around it.</p></div>
+      <div class="feature-card"><span class="feature-icon">⚡</span><h3>Instant Results</h3><p>Two curated outfit ideas in one click — no account, no ads, no waiting.</p></div>
+    </div>
+  </section>
 
-    <footer class="footer">
-      Powered by <a href="https://essentialmens.com/" target="_blank">EssentialMens.com</a>
-    </footer>
-  </div>
-  <script src="popup.js"></script>
+  <section class="steps">
+    <div class="section-label">Get started in minutes</div>
+    <div class="section-title">How to Install</div>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><h4>Download</h4><p>Download the ZIP and extract it to a folder on your computer</p></div>
+      <div class="step"><div class="step-num">2</div><h4>Open Chrome</h4><p>Go to <span style="color:var(--gold-lt)">chrome://extensions</span> and turn on Developer Mode</p></div>
+      <div class="step"><div class="step-num">3</div><h4>Load It</h4><p>Click "Load unpacked" and select the extracted folder</p></div>
+      <div class="step"><div class="step-num">4</div><h4>Style Up ✨</h4><p>Pin the extension and start generating your perfect looks!</p></div>
+    </div>
+    <a class="btn-main" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant/archive/refs/heads/main.zip">Download Now — It's Free</a>
+  </section>
+
+  <footer>
+    <p>Made with ♥ by <strong>EssentialMens</strong> &nbsp;|&nbsp;
+      <a href="https://essentialmens.com" target="_blank">essentialmens.com</a> &nbsp;|&nbsp;
+      <a href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant" target="_blank">GitHub</a>
+    </p>
+    <p style="margin-top:8px;font-size:11px;">Open source under MIT License</p>
+  </footer>
+
 </body>
 </html>
