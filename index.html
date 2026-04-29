@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outfit Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1>Outfit Generator</h1>
+  <p>Generate smart outfits instantly</p>
+  <a href="https://essentialmens.com/" target="_blank" class="cta">Visit Website</a>
+</header>
+
+<div class="controls">
+<select id="occasion">
+<option value="casual">Casual</option>
+<option value="formal">Formal</option>
+</select>
+
+<select id="season">
+<option value="summer">Summer</option>
+<option value="winter">Winter</option>
+</select>
+
+<select id="color">
+<option value="black">Black</option>
+<option value="white">White</option>
+</select>
+
+<button onclick="generate()">Generate Outfit</button>
+</div>
+
+<div id="results" class="grid"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
