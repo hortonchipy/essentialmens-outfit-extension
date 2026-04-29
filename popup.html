@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outfit Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-badge">MEN'S STYLE</div>
+      <h1 class="title">Outfit<br><em>Generator</em></h1>
+      <p class="subtitle">Curated looks for every occasion</p>
+    </header>
+
+    <!-- Form -->
+    <main class="form-section">
+
+      <div class="field">
+        <label for="occasion" class="label">
+          <span class="label-icon">◈</span> Occasion
+        </label>
+        <div class="select-wrapper">
+          <select id="occasion">
+            <option value="casual">Casual</option>
+            <option value="formal">Formal</option>
+            <option value="party">Party</option>
+            <option value="office">Office</option>
+          </select>
+          <span class="select-arrow">↓</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="season" class="label">
+          <span class="label-icon">◈</span> Season
+        </label>
+        <div class="select-wrapper">
+          <select id="season">
+            <option value="summer">Summer</option>
+            <option value="winter">Winter</option>
+            <option value="spring">Spring</option>
+            <option value="fall">Fall</option>
+          </select>
+          <span class="select-arrow">↓</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="color" class="label">
+          <span class="label-icon">◈</span> Color Preference
+        </label>
+        <div class="select-wrapper">
+          <select id="color">
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="blue">Blue</option>
+            <option value="neutral">Neutral</option>
+          </select>
+          <span class="select-arrow">↓</span>
+        </div>
+      </div>
+
+      <button id="generateBtn" class="btn">
+        <span class="btn-text">Generate Outfit</span>
+        <span class="btn-icon">→</span>
+      </button>
+
+    </main>
+
+    <!-- Output -->
+    <section id="output" class="output hidden">
+      <div class="output-header">
+        <span class="output-label">YOUR LOOKS</span>
+        <div class="output-divider"></div>
+      </div>
+      <div id="outfitCards" class="outfit-cards"></div>
+      <a href="https://essentialmens.com/" target="_blank" class="more-link">
+        View more outfits <span>↗</span>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      Powered by <a href="https://essentialmens.com/" target="_blank">EssentialMens.com</a>
+    </footer>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
