@@ -1,38 +1,33 @@
-# Outfit Generator Chrome Extension
+# EssentialMens Outfit Generator Chrome Extension
 
-A simple Chrome extension that helps users generate outfit ideas based on occasion, season, and color.
+A simple Chrome extension that helps users generate outfit ideas based on season, color, and occasion.
 
 ## Features
 
-* Works offline (no API used)
-* Simple and fast UI
-* Predefined smart suggestions
-* Lightweight
+- Works offline
+- Lightweight extension
+- Fast user interface
+- Smart predefined outfit suggestions
 
 ## Installation
 
-1. Download the ZIP
+1. Download ZIP
 2. Extract files
-3. Open Chrome → Extensions
-4. Enable Developer Mode
-5. Click "Load unpacked"
-6. Select the folder
+3. Open Chrome
+4. Go to chrome://extensions/
+5. Enable Developer Mode
+6. Click Load Unpacked
+7. Select extension folder
 
-## Use Case
+## GitHub Pages Demo
 
-Helpful for users who want quick outfit inspiration without browsing multiple pages.
+https://hortonchipy.github.io/essentialmens-outfit-extension/
 
-## Project Source
+## Included Files
 
-This tool is inspired by content from:
-https://essentialmens.com/
-
-## Notes
-
-* No external API used
-* Pure HTML, CSS, JavaScript
-
-## License
-
-Free to use for learning purposes
-
+- manifest.json
+- popup.html
+- popup.js
+- popup.css
+- index.html
+- style.css
