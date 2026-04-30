@@ -15,8 +15,8 @@
     nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(250,247,242,0.93); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(184,147,90,0.2); z-index: 100; padding: 0 5%; height: 60px; display: flex; align-items: center; justify-content: space-between; }
     .nav-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
     .nav-brand span { color: var(--gold); font-style: italic; }
-    .nav-link { font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 4px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; transition: all 0.2s; }
-    .nav-link:hover { background: var(--gold); color: white; }
+    .nav-link { font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 4px; background: var(--gold); color: white; text-decoration: none; transition: all 0.2s; }
+    .nav-link:hover { background: var(--gold-lt); }
 
     .hero { padding: 140px 5% 80px; text-align: center; background: var(--ink); position: relative; overflow: hidden; }
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold)); }
@@ -28,8 +28,6 @@
     .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
     .btn-main { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: white; font-size: 14px; font-weight: 500; padding: 13px 28px; border-radius: 4px; text-decoration: none; transition: all 0.2s; }
     .btn-main:hover { background: var(--gold-lt); transform: translateY(-2px); }
-    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--cream); font-size: 14px; font-weight: 500; padding: 13px 28px; border-radius: 4px; text-decoration: none; border: 1px solid rgba(245,240,232,0.25); transition: all 0.2s; }
-    .btn-ghost:hover { border-color: var(--cream); }
 
     .preview { display: flex; justify-content: center; padding: 70px 5% 80px; background: var(--bg); }
     .popup-preview { width: 360px; background: var(--cream); border-radius: 8px; box-shadow: 0 40px 80px rgba(26,14,5,0.18), 0 0 0 1px rgba(184,147,90,0.2); overflow: hidden; }
@@ -78,7 +76,7 @@
 
   <nav>
     <div class="nav-brand">Essential<span>Mens</span></div>
-    <a class="nav-link" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant" target="_blank">View on GitHub</a>
+    <a class="nav-link" href="https://github.com/hortonchipy/essential-mens-outfit-assistant/archive/refs/heads/main.zip">Download Free ↓</a>
   </nav>
 
   <section class="hero">
@@ -86,8 +84,9 @@
     <h1>Your Personal<br><em>Style Assistant</em></h1>
     <p>Generate stylish men's outfit suggestions based on occasion, season, and color — right from your browser.</p>
     <div class="hero-btns">
-      <a class="btn-main" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant/archive/refs/heads/main.zip">Download Free ↓</a>
-      <a class="btn-ghost" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant" target="_blank">★ View on GitHub</a>
+      <a class="btn-main" href="https://github.com/hortonchipy/essential-mens-outfit-assistant/archive/refs/heads/main.zip">
+        Download Free ↓
+      </a>
     </div>
   </section>
 
@@ -138,13 +137,14 @@
       <div class="step"><div class="step-num">3</div><h4>Load It</h4><p>Click "Load unpacked" and select the extracted folder</p></div>
       <div class="step"><div class="step-num">4</div><h4>Style Up ✨</h4><p>Pin the extension and start generating your perfect looks!</p></div>
     </div>
-    <a class="btn-main" href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant/archive/refs/heads/main.zip">Download Now — It's Free</a>
+    <a class="btn-main" href="https://github.com/hortonchipy/essential-mens-outfit-assistant/archive/refs/heads/main.zip">
+      Download Now — It's Free
+    </a>
   </section>
 
   <footer>
     <p>Made with ♥ by <strong>EssentialMens</strong> &nbsp;|&nbsp;
-      <a href="https://essentialmens.com" target="_blank">essentialmens.com</a> &nbsp;|&nbsp;
-      <a href="https://github.com/YOUR_USERNAME/essential-mens-outfit-assistant" target="_blank">GitHub</a>
+      <a href="https://essentialmens.com" target="_blank">essentialmens.com</a>
     </p>
     <p style="margin-top:8px;font-size:11px;">Open source under MIT License</p>
   </footer>
